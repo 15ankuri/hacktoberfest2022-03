@@ -2,9 +2,11 @@ package Huffman;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+
 import java.io.*;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class HuffmanTable {
     public static BiMap<Character, String> makeTable(String message, Path path) throws IOException {
@@ -62,7 +64,7 @@ public class HuffmanTable {
 
 
     public static BiMap<Character, String> retrieveTable(Path path) throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(path.toString() + "/" + "HuffmanTable.tb");
+        FileInputStream fileInputStream = new FileInputStream(path + "/" + "HuffmanTable.tb");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         @SuppressWarnings("unchecked")
         BiMap<Character, String> huffmanTable = (BiMap<Character, String>) objectInputStream.readObject();
