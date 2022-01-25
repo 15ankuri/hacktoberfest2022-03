@@ -1,26 +1,17 @@
 package IO;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.nio.file.Path;
 
 public class Reader {
-    public static String read(Path path) throws Exception {
-        StringBuilder message = new StringBuilder();
-        try {
-            File file = new File(path.toString());
-
-            if (!file.canRead())
-                throw new Exception("Cannot read file!");
-
-            FileReader fileReader = new FileReader(file);
+    public static @NotNull String read(Path path) {
+        StringBuilder message = null;
+        try (FileReader fileReader = new FileReader(path.toString())) {
+            message = new StringBuilder();
             int line;
-            while ((line = fileReader.read()) != -1) {
-                message.append((char) line);
-            }
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
-            System.exit(1);
+            while ((line = fileReader.read()) != -1) message.append((char) line);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(1);

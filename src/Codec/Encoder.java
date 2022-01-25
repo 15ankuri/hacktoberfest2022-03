@@ -14,7 +14,7 @@ public class Encoder {
         String message = Reader.read(filePath);
         BiMap<Character, String> huffmanTable = HuffmanTable.makeTable(message, rootPath);
         StringBuilder encodedMessage = new StringBuilder();
-        for (char ch : message.toString().toCharArray()) {
+        for (char ch : message.toCharArray()) {
             encodedMessage.append(huffmanTable.get(ch));
         }
 

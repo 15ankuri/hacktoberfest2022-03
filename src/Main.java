@@ -1,7 +1,5 @@
 import Codec.Decoder;
 import Codec.Encoder;
-import Util.PathFinder;
-
 import java.nio.file.Path;
 import java.util.Scanner;
 
@@ -21,16 +19,11 @@ public class Main {
 
         System.out.print("Enter path of the file: ");
         Path filePath = Path.of(sc.nextLine());
-        Path rootPath = PathFinder.rootPath(filePath);
         System.out.print("\n");
 
         switch (choice) {
-            case 1 -> {
-                Encoder.encode(filePath, "Encoded.txt");
-            }
-            case 2 -> {
-                Decoder.decode(filePath, "Decoded.txt");
-            }
+            case 1 -> Encoder.encode(filePath, "Encoded.txt");
+            case 2 -> Decoder.decode(filePath, "Decoded.txt");
             default -> System.exit(0);
         }
 

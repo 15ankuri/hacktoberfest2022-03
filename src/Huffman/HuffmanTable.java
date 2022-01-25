@@ -10,7 +10,7 @@ public class HuffmanTable {
     public static BiMap<Character, String> makeTable(String message, Path path) throws IOException {
         // Creating frequency table
         HashMap<Character, Integer> frequencyTable = new HashMap<>();
-        for (char ch : message.toString().toCharArray()) {
+        for (char ch : message.toCharArray()) {
             frequencyTable.put(ch, frequencyTable.getOrDefault(ch, 0) + 1);
         }
 
@@ -26,6 +26,7 @@ public class HuffmanTable {
         while (pq.size() > 1) {
             HuffmanNode min1 = pq.poll();
             HuffmanNode min2 = pq.poll();
+            assert min2 != null;
             pq.offer(new HuffmanNode('\0', min1.frequency + min2.frequency, min1, min2));
         }
 
@@ -34,6 +35,7 @@ public class HuffmanTable {
 
         // Create and save huffman table
         BiMap<Character, String> huffmanTable = HashBiMap.create();
+        assert root != null;
         traverseHuffmanTree(root, "", huffmanTable);
 
         // Save huffman table
@@ -53,6 +55,7 @@ public class HuffmanTable {
             return;
         }
 
+        assert node.left != null;
         traverseHuffmanTree(node.left, characterSet + "0", huffmanTable);
         traverseHuffmanTree(node.right, characterSet + "1", huffmanTable);
     }
