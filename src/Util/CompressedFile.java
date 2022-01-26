@@ -4,10 +4,18 @@ import com.google.common.collect.BiMap;
 
 import java.io.Serializable;
 
+/*
+This class binds encoded message, its huffman table as well as length of the original
+message together,so that everything needed in order to decompress can be easily retrieved
+from a single file.
+
+This is the class whose object will be serialized as a compressed(output) file.
+ */
+
 public class CompressedFile implements Serializable {
-    BiMap<Character, String> huffmanTable;
-    String message;
-    int length;
+    BiMap<Character, String> huffmanTable; // Stores huffman table which can be used to decode the message later
+    String message; // Stores encoded message
+    int length; // Stores size(characters) of the original message
 
     public CompressedFile(BiMap<Character, String> huffmanTable, String message, int length) {
         this.huffmanTable = huffmanTable;

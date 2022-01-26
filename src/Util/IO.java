@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class IO {
-    public static String read(String path) {
-        return getString(path);
-    }
+/*
+Contains methods to interact with files.
+ */
 
-    static String getString(String path) {
+public class IO {
+    // Inputs path of the file and returns the content of the file as string
+    public static String read(String path) {
         StringBuilder message = null;
         try (FileReader fileReader = new FileReader(path)) {
             message = new StringBuilder();
@@ -22,11 +23,8 @@ public class IO {
         return message.toString();
     }
 
+    // Inputs string message that needs to be written in the file and the path where file need to be saved.
     public static void write(String message, String path) {
-        getFile(message, path);
-    }
-
-    static void getFile(String message, String path) {
         File file = new File(path);
         try (FileWriter fileWriter = new FileWriter(file)) {
             for (char ch : message.toCharArray()) {
@@ -37,5 +35,4 @@ public class IO {
             System.exit(1);
         }
     }
-
 }

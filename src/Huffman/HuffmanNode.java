@@ -1,10 +1,10 @@
 package Huffman;
 
 class HuffmanNode implements Comparable<HuffmanNode> {
-    char value;
-    int frequency;
-    HuffmanNode left;
-    HuffmanNode right;
+    char value; // Stores character which this node represents
+    int frequency; // Stores frequency of this character
+    HuffmanNode left; // Pointer to the left child
+    HuffmanNode right; // Pointer to the right child
 
     public HuffmanNode(char value, int frequency) {
         this.value = value;

@@ -9,6 +9,11 @@ import com.google.common.collect.BiMap;
 import java.io.IOException;
 import java.util.Scanner;
 
+/*
+Driver class which is the entry point of the application.
+This class directly interacts with the user.
+ */
+
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
@@ -36,7 +41,7 @@ public class Main {
                     String encodedMessage = Encoder.encode(message, huffmanTable);
                     String compressedMessage = Util.compress(encodedMessage);
                     CompressedFile file = new CompressedFile(huffmanTable, compressedMessage, length);
-                    Util.serializeFile("./Encoded.cmp", file);
+                    Util.serializeFile(file, "./Encoded.cmp");
                 }
                 case 2 -> {
                     CompressedFile file = Util.deserializeFile(path);
