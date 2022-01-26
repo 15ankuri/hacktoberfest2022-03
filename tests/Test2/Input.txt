@@ -1,2 +1,0 @@
-Hello this is my first JAVA Application.
-1 2 3 6 @ 67
