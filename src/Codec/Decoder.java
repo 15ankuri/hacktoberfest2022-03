@@ -1,28 +1,31 @@
 package Codec;
 
-import Huffman.HuffmanTable;
-import IO.Reader;
-import IO.Writer;
-import Util.PathFinder;
 import com.google.common.collect.BiMap;
-import java.nio.file.Path;
 
 public class Decoder {
-    public static void decode(Path filePath, String name) throws Exception {
-        Path rootPath = PathFinder.rootPath(filePath);
-
-        String encodedMessage = Reader.read(filePath);
-        BiMap<Character, String> huffmanTable = HuffmanTable.retrieveTable(rootPath);
+    public static String decode(String message, BiMap<Character, String> huffmanTable) {
         StringBuilder decodedMessage = new StringBuilder();
         String characterSet = "";
-        for (char ch : encodedMessage.toCharArray()) {
+        for (char ch : message.toCharArray()) {
             characterSet += ch;
             if (huffmanTable.inverse().containsKey(characterSet)) {
                 decodedMessage.append(huffmanTable.inverse().get(characterSet));
                 characterSet = "";
             }
         }
-
-        Writer.write(decodedMessage.toString(), rootPath, name);
+        if (!"".equals(characterSet)) {
+            int prev = 0;
+            int i = 1;
+            int n = characterSet.length();
+            while (i <= n) {
+                String substring = characterSet.substring(prev, i);
+                if (huffmanTable.inverse().containsKey(substring)) {
+                    decodedMessage.append(huffmanTable.inverse().get(substring));
+                    prev = i + 1;
+                }
+                i++;
+            }
+        }
+        return decodedMessage.toString();
     }
 }

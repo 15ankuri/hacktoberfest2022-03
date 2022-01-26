@@ -1,7 +1,6 @@
 # Project exclude paths
 /out/
 .idea
+tests
 *.iml
-*.class
 .DS_Store
-*.jar

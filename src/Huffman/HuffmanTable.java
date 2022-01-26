@@ -3,13 +3,11 @@ package Huffman;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import java.io.*;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class HuffmanTable {
-    public static BiMap<Character, String> makeTable(String message, Path path) throws IOException {
+    public static BiMap<Character, String> makeTable(String message) {
         // Creating frequency table
         HashMap<Character, Integer> frequencyTable = new HashMap<>();
         for (char ch : message.toCharArray()) {
@@ -40,13 +38,6 @@ public class HuffmanTable {
         assert root != null;
         traverseHuffmanTree(root, "", huffmanTable);
 
-        // Save huffman table
-        FileOutputStream fileOutputStream = new FileOutputStream(path.toString() + "/" + "HuffmanTable.tb");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(huffmanTable);
-        objectOutputStream.flush();
-        objectOutputStream.close();
-
         // return huffman table
         return huffmanTable;
     }
@@ -56,20 +47,8 @@ public class HuffmanTable {
             huffmanTable.put(node.value, characterSet);
             return;
         }
-
         assert node.left != null;
         traverseHuffmanTree(node.left, characterSet + "0", huffmanTable);
         traverseHuffmanTree(node.right, characterSet + "1", huffmanTable);
     }
-
-
-    public static BiMap<Character, String> retrieveTable(Path path) throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(path + "/" + "HuffmanTable.tb");
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        @SuppressWarnings("unchecked")
-        BiMap<Character, String> huffmanTable = (BiMap<Character, String>) objectInputStream.readObject();
-        objectInputStream.close();
-        return huffmanTable;
-    }
-
 }
