@@ -14,19 +14,6 @@ public class Decoder {
                 characterSet = "";
             }
         }
-        if (!"".equals(characterSet)) {
-            int prev = 0;
-            int i = 1;
-            int n = characterSet.length();
-            while (i <= n) {
-                String substring = characterSet.substring(prev, i);
-                if (huffmanTable.inverse().containsKey(substring)) {
-                    decodedMessage.append(huffmanTable.inverse().get(substring));
-                    prev = i + 1;
-                }
-                i++;
-            }
-        }
         return decodedMessage.toString();
     }
 }
