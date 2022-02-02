@@ -55,22 +55,6 @@ public class CompressedFile implements Serializable {
         return (char) res;
     }
 
-    public BiMap<Character, String> getHuffmanTable() {
-        return this.huffmanTable;
-    }
-
-    public String getMessage() {
-        return decompress(this.message);
-    }
-
-    public int getLength() {
-        return this.length;
-    }
-
-    public String getExtension() {
-        return this.extension;
-    }
-
     // Converts 16-bit character to its binary representation
     private static String characterToBitstream(char ch) {
         StringBuilder res = new StringBuilder(Integer.toBinaryString(ch));
@@ -85,6 +69,22 @@ public class CompressedFile implements Serializable {
         FileInputStream fileInputStream = new FileInputStream(path);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         return (CompressedFile) objectInputStream.readObject();
+    }
+
+    public BiMap<Character, String> getHuffmanTable() {
+        return this.huffmanTable;
+    }
+
+    public String getMessage() {
+        return decompress(this.message);
+    }
+
+    public int getLength() {
+        return this.length;
+    }
+
+    public String getExtension() {
+        return this.extension;
     }
 
     // Serializes object of CompressedFile and saves it to the specified path
