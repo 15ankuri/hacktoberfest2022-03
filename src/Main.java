@@ -2,6 +2,7 @@ import Codec.Decoder;
 import Codec.Encoder;
 import Huffman.HuffmanTable;
 import Util.CompressedFile;
+import Util.ConsoleColors;
 import Util.IO;
 import com.google.common.collect.BiMap;
 
@@ -20,24 +21,23 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\nWelcome to Huffman Compressor by insane_banda:");
-            System.out.println("Modes Available:");
-            System.out.println("1: Encoding Mode");
-            System.out.println("2: Decoding Mode");
-            System.out.println("0: Exit");
+            System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + "Welcome to Huffman Compressor by " + ConsoleColors.YELLOW_BOLD_BRIGHT + "insane_banda" + ConsoleColors.PURPLE_BOLD_BRIGHT + ":" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + "Modes Available:" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "1: Encoding Mode" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "2: Decoding Mode" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT + "0: Exit" + ConsoleColors.RESET);
             int choice = sc.nextInt();
             sc.nextLine();
 
             if (choice == 0) System.exit(0);
 
             Pattern fileValidator = Pattern.compile("([\\w_\\-.\\s/]+?)/([\\w_\\-.\\s]+?)\\.([\\w_.\\-\\s]+)");
-            System.out.print("Enter path of the file: ");
+            System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT + "Enter path of the file:" + ConsoleColors.RESET);
             String path = sc.nextLine();
-            System.out.print("\n");
             Matcher matcher = fileValidator.matcher(path);
 
             if (!matcher.matches()) {
-                System.out.println("Invalid Path!");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid Path!\n" + ConsoleColors.RESET);
                 continue;
             }
 
