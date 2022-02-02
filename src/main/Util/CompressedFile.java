@@ -1,4 +1,4 @@
-package Util;
+package main.Util;
 
 import com.google.common.collect.BiMap;
 
@@ -26,7 +26,7 @@ public class CompressedFile implements Serializable {
     }
 
     // Converts binary string to bit stream as string(sequence of 2-bytes character)
-    private static String compress(String message) {
+    public static String compress(String message) {
         StringBuilder compressedMessage = new StringBuilder();
         StringBuilder bitStream = new StringBuilder();
         for (char ch : message.toCharArray()) {
@@ -40,14 +40,8 @@ public class CompressedFile implements Serializable {
         return compressedMessage.toString();
     }
 
-    // Converts binary string of length 16 to integer and returns it as a character
-    private static char bitstreamToCharacter(String bitStream) {
-        int res = Integer.valueOf(bitStream, 2) << (16 - bitStream.length());
-        return (char) res;
-    }
-
     // Converts string representation(sequence of 2-bytes character) of bit stream to binary string
-    private static String decompress(String compressedMessage) {
+    public static String decompress(String compressedMessage) {
         StringBuilder decompressedMessage = new StringBuilder();
         for (char ch : compressedMessage.toCharArray()) {
             decompressedMessage.append(characterToBitstream(ch));
@@ -55,20 +49,10 @@ public class CompressedFile implements Serializable {
         return decompressedMessage.toString();
     }
 
-    // Converts 16-bit character to its binary representation
-    private static String characterToBitstream(char ch) {
-        StringBuilder res = new StringBuilder(Integer.toBinaryString(ch));
-        while (res.length() < 16) {
-            res.insert(0, "0");
-        }
-        return res.toString();
-    }
-
-    // Deserializes file from the specified path and returns object of CompressedFile type
-    public static CompressedFile deserializeFile(String path) throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(path);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        return (CompressedFile) objectInputStream.readObject();
+    // Converts binary string of length 16 to integer and returns it as a character
+    private static char bitstreamToCharacter(String bitStream) {
+        int res = Integer.valueOf(bitStream, 2) << (16 - bitStream.length());
+        return (char) res;
     }
 
     public BiMap<Character, String> getHuffmanTable() {
@@ -85,6 +69,22 @@ public class CompressedFile implements Serializable {
 
     public String getExtension() {
         return this.extension;
+    }
+
+    // Converts 16-bit character to its binary representation
+    private static String characterToBitstream(char ch) {
+        StringBuilder res = new StringBuilder(Integer.toBinaryString(ch));
+        while (res.length() < 16) {
+            res.insert(0, "0");
+        }
+        return res.toString();
+    }
+
+    // Deserializes file from the specified path and returns object of CompressedFile type
+    public static CompressedFile deserializeFile(String path) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(path);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (CompressedFile) objectInputStream.readObject();
     }
 
     // Serializes object of CompressedFile and saves it to the specified path

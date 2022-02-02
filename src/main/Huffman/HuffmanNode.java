@@ -1,4 +1,4 @@
-package Huffman;
+package main.Huffman;
 
 class HuffmanNode implements Comparable<HuffmanNode> {
     char value; // Stores character which this node represents

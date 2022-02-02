@@ -1,10 +1,12 @@
-import Codec.Decoder;
-import Codec.Encoder;
-import Huffman.HuffmanTable;
-import Util.CompressedFile;
-import Util.ConsoleColors;
-import Util.IO;
+package main;
+
 import com.google.common.collect.BiMap;
+import main.Codec.Decoder;
+import main.Codec.Encoder;
+import main.Huffman.HuffmanTable;
+import main.Util.CompressedFile;
+import main.Util.ConsoleColors;
+import main.Util.IO;
 
 import java.io.IOException;
 import java.util.Scanner;

@@ -1,15 +1,15 @@
-package Huffman;
+package main.Huffman;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.PriorityQueue;
 
 /*
-Consists of all the methods required in order to create Huffman table.
+Consists of all the methods required in order to create main.Huffman table.
 
-This class uses a Bidirectional-map in order to represent Huffman table
+This class uses a Bidirectional-map in order to represent main.Huffman table
 which can be used for both encoding and decoding purposes.
  */
 
@@ -17,7 +17,7 @@ public class HuffmanTable {
     // Takes message as input, processes it to create huffman table and then return the table
     public static BiMap<Character, String> makeTable(String message) {
         // Create frequency table
-        HashMap<Character, Integer> frequencyTable = new HashMap<>();
+        LinkedHashMap<Character, Integer> frequencyTable = new LinkedHashMap<>();
         for (char ch : message.toCharArray()) {
             frequencyTable.put(ch, frequencyTable.getOrDefault(ch, 0) + 1);
         }
@@ -30,7 +30,7 @@ public class HuffmanTable {
             pq.offer(new HuffmanNode(key, frequencyTable.get(key)));
         }
 
-        // Building Huffman tree
+        // Building main.Huffman tree
         while (pq.size() > 1) {
             HuffmanNode min1 = pq.poll(); // node with minimum frequency among all the nodes
             HuffmanNode min2 = pq.poll(); // node with second most minimum frequency among all the nodes
@@ -38,7 +38,7 @@ public class HuffmanTable {
             pq.offer(new HuffmanNode('\0', min1.frequency + min2.frequency, min1, min2));
         }
 
-        // Initializing the Root of Huffman tree
+        // Initializing the Root of main.Huffman tree
         HuffmanNode root = pq.poll();
 
         // Create and save huffman table
@@ -56,7 +56,6 @@ public class HuffmanTable {
             huffmanTable.put(node.value, characterSet);
             return;
         }
-        assert node.left != null;
         traverseHuffmanTree(node.left, characterSet + "0", huffmanTable); // DFS to left of the current node
         traverseHuffmanTree(node.right, characterSet + "1", huffmanTable); // DFS to right of the current node
     }

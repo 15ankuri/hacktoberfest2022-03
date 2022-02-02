@@ -1,4 +1,4 @@
-package Codec;
+package main.Codec;
 
 import com.google.common.collect.BiMap;
 

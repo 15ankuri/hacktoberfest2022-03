@@ -1,4 +1,4 @@
-package Util;
+package main.Util;
 
 public class ConsoleColors {
     // Reset

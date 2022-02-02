@@ -1,8 +1,7 @@
-package Util;
+package main.Util;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /*
 Contains methods to interact with files.
@@ -12,7 +11,7 @@ public class IO {
     // Inputs path of the file and returns the content of the file as string
     public static String read(String path) {
         StringBuilder message = null;
-        try (FileReader fileReader = new FileReader(path)) {
+        try (InputStreamReader fileReader = new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_16)) {
             message = new StringBuilder();
             int line;
             while ((line = fileReader.read()) != -1) message.append((char) line);
@@ -26,7 +25,7 @@ public class IO {
     // Inputs string message that needs to be written in the file and the path where file need to be saved.
     public static void write(String message, String path) {
         File file = new File(path);
-        try (FileWriter fileWriter = new FileWriter(file)) {
+        try (OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_16)) {
             for (char ch : message.toCharArray()) {
                 fileWriter.write(ch);
             }
