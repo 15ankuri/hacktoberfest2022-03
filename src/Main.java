@@ -3,11 +3,12 @@ import Codec.Encoder;
 import Huffman.HuffmanTable;
 import Util.CompressedFile;
 import Util.IO;
-import Util.Util;
 import com.google.common.collect.BiMap;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 Driver class which is the entry point of the application.
@@ -29,9 +30,16 @@ public class Main {
 
             if (choice == 0) System.exit(0);
 
+            Pattern fileValidator = Pattern.compile("([\\w_\\-.\\s/]+?)/([\\w_\\-.\\s]+?)\\.([\\w_.\\-\\s]+)");
             System.out.print("Enter path of the file: ");
             String path = sc.nextLine();
             System.out.print("\n");
+            Matcher matcher = fileValidator.matcher(path);
+
+            if (!matcher.matches()) {
+                System.out.println("Invalid Path!");
+                continue;
+            }
 
             switch (choice) {
                 case 1 -> {
@@ -39,17 +47,17 @@ public class Main {
                     int length = message.length();
                     BiMap<Character, String> huffmanTable = HuffmanTable.makeTable(message);
                     String encodedMessage = Encoder.encode(message, huffmanTable);
-                    String compressedMessage = Util.compress(encodedMessage);
-                    CompressedFile file = new CompressedFile(huffmanTable, compressedMessage, length);
-                    Util.serializeFile(file, "./Encoded.cmp");
+                    CompressedFile file = new CompressedFile(huffmanTable, encodedMessage, length, matcher.group(3));
+                    file.serializeFile(matcher.group(1) + "/" + matcher.group(2) + ".cmp");
                 }
                 case 2 -> {
-                    CompressedFile file = Util.deserializeFile(path);
+                    CompressedFile file = CompressedFile.deserializeFile(path);
                     String message = file.getMessage();
                     BiMap<Character, String> huffmanTable = file.getHuffmanTable();
                     int length = file.getLength();
-                    String decodedMessage = Decoder.decode(Util.decompress(message), huffmanTable);
-                    IO.write(decodedMessage.substring(0, length), "./Decoded.txt");
+                    String extension = file.getExtension();
+                    String decodedMessage = Decoder.decode(message, huffmanTable);
+                    IO.write(decodedMessage.substring(0, length), matcher.group(1) + "/Decoded." + extension);
                 }
                 default -> System.exit(0);
             }
