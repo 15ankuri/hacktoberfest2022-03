@@ -1,6 +1,6 @@
 # Project exclude paths
-/out/
+out
+src/META-INF
 .idea
-tests
 *.iml
 .DS_Store
