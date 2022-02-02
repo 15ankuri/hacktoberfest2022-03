@@ -33,7 +33,7 @@ public class Main {
 
             if (choice == 0) System.exit(0);
 
-            Pattern fileValidator = Pattern.compile("([\\w_\\-.\\s/]+?)/([\\w_\\-.\\s]+?)\\.([\\w_.\\-\\s]+)");
+            Pattern fileValidator = Pattern.compile("([\\w_\\-.\\s/]*?)?/?([\\w_\\-.\\s]+?)\\.([\\w_.\\-\\s]+)");
             System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT + "Enter path of the file:" + ConsoleColors.RESET);
             String path = sc.nextLine();
             Matcher matcher = fileValidator.matcher(path);
